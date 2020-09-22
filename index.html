@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <script src="vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<!-- v-once 这个值只会变化一次 -->
+<div id="app">
+    {{ message }}:{{ name }}
+    <p>Using v-html mustaches: {{ rawHtml }}</p>
+    <p v-html="rawHtml">Using v-html mustaches: </p>
+    <!--响应式更新标签属性-->
+    <p v-bind:class="color">test</p>
+    <p>{{ number + 1}}</p>
+    <p>{{ ok?'折磨折磨':'舒服舒服'}}</p>
+    <p>{{ message.split('').reverse().join('') }}</p>
+    <p v-if="seem">你看的见我吗？</p>
+    <a v-bind:href="url">{{ aim }}</a>
+    <div @click="click1">
+        <div @click.stop="click2">
+            click me
+        </div>
+    </div>
+    <div class="test" v-bind:class="{ active : isActive,fontColor : isFontColor }"
+         style="height: 200px;width: 200px;text-align: center;line-height: 200px">
+        update class
+    </div>
+</div>
+
+<script type="text/javascript">
+    //Object.freeze(obj) 使对象不动态更新值
+    var data = {
+        message: 'Hello World',
+        name: 'Vue',
+        rawHtml: '<span style="color: red">this is should be red</span>',
+        color: 'color',
+        number: 10,
+        ok: true,
+        seem: false,
+        url: 'https://www.baidu.com',
+        aim: '点我去百度',
+        isActive: true,
+        isFontColor: true
+    };
+    var vm = new Vue({
+        el: '#app',
+        data: data,
+        //实例初始化之后，数据观测（data observer）和 event/watcher 事件配置之前被调用. 理解：整个页面创建之前
+        beforeCreate: function () {
+            console.log('beforeCreate');
+        },
+        //在实例创建完成之后立即被调用
+        //在这一步，实例已经完成：数据观测（data observer）属性，方法的运算， watch/event时间回调
+        //然而，挂在阶段还没开始，$el 属性目前不可见。
+        created: function () {
+            console.log('created');
+        },
+        //在挂在开始之前被调用，相关的渲染函数首次被调用。挂载：就是节点被vue节点替换
+        beforeMount: function () {
+            console.log('beforeMount');
+        },
+        //el 被新创建的vm.$el 替换，挂载成功
+        mounted: function () {
+            console.log('mounted');
+        },
+        //数据更新的时候调用,优先于watch()函数被调用
+        beforeUpdate: function () {
+            console.log('beforeUpdate')
+        },
+        //组件DOM 已经更新，更新完成后调用
+        updated: function () {
+            console.log('updated')
+        },
+        methods: {
+            click1: function () {
+                console.log('click1')
+            },
+            click2: function () {
+                console.log('click2')
+            }
+        }
+    });
+    setTimeout(function () {
+        vm.message = 'Fuck The World';
+        vm.seem = true;
+        vm.url = 'https://www.bilibili.com';
+        vm.aim = '点我去B站';
+    }, 3000);
+    //对象变量的监视器
+    vm.$watch('name', function (newValue, oldValue) {
+        console.log("newValue = " + newValue);
+        console.log("oldValue = " + oldValue);
+    });
+    data.name = 'Nicholas'
+</script>
+<style type="text/css">
+    .color {
+        color: red;
+        font-size: 30px;
+    }
+
+    .active {
+        background-color: red;
+    }
+
+    .test {
+        font-size: 30px;
+    }
+
+    .fontColor {
+        color: green;
+    }
+</style>
+</body>
+</html>
