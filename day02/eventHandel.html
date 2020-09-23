@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="example">
+    <button v-on:click="counter++">点击</button>
+    <p>点击次数 : {{ counter }} 次</p>
+    <button v-on:click="changeColor">点我下面来回变色</button>
+    <p v-bind:class="color">我是颜色</p>
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#example',
+        data: {
+            counter: 0,
+            color: 'color',
+            nextColor: 'color1'
+        },
+
+        methods: {
+            changeColor: function () {
+                var oldColor = this.color;
+                this.color = this.nextColor;
+                this.nextColor = oldColor;
+            }
+        }
+    });
+</script>
+<style type="text/css">
+    .color {
+        color: red;
+    }
+
+    .color1 {
+        color: blue;
+    }
+</style>
+</body>
+</html>
