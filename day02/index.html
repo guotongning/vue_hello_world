@@ -13,14 +13,52 @@
     <span title="111" style="background-color: red">
         222
     </span>
-    <p v-if="seem">我出来了。</p>
+    <!--
+    v-if 是真正的条件渲染
+    v-show 的元素不管初始条件是什么都会渲染，条件为真的时候只是基于css进行切换。
+      -->
+    <p v-if="seem">我出来了。往下看</p>
+    <p v-else>等一会的！</p>
+    <a v-show="buttonShow" v-bind:href="bilibili" style="color: red">通往神秘地址！请勿点击！！！</a><br>
+    <button @click="usernameLogin">user username login</button>
+    <button @click="emailLogin">use email login</button>
+    <br>
+    <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username" key="username-input">
+    </template>
+    <template v-else-if="loginType === 'email'">
+        <label>Email</label>
+        <input placeholder="Enter your email" key="email-input">
+    </template>
+    <!--  filter()、concat() 和 slice()这些方法会返回一个新的数组。  -->
+    <!--  不推荐同时使用v-for v-if，因为v-for的优先级更高。但是可以用于v-if进行v-for次一级的判断。例如：只渲染一部分元素。  -->
+    <ul>
+        <li v-for="(item,index) in items" v-bind:key="item.id">
+            {{loginType}} - {{index+1}} - {{item.message}} {{item.name}}
+        </li>
+    </ul>
 </div>
 
 <!--JS代码-->
 <script type="text/javascript">
     var data = {
         message: '页面加载于' + new Date().toLocaleString(),
-        seem: false
+        seem: false,
+        loginType: 'username',
+        buttonShow: false,
+        bilibili: 'https://www.bilibili.com',
+        usernameLogin: function () {
+            app.loginType = 'username';
+        },
+        emailLogin: function () {
+            app.loginType = 'email';
+        },
+        items: [
+            {id: 1, message: 'I am ', name: 'Foo'},
+            {id: 2, message: 'I am ', name: 'Bar'},
+            {id: 3, message: 'I am ', name: 'Nicholas'}
+        ]
     };
     var app = new Vue({
         el: '#app',
@@ -28,7 +66,8 @@
     });
     setTimeout(function () {
         app.seem = true;
-    }, 3000)
+        app.buttonShow = true;
+    }, 3000);
 </script>
 <!--样式-->
 <style type="text/css">
