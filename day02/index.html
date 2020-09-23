@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="app">
+    <span v-bind:title="message" style="background-color: blue">
+        鼠标悬停几秒查看此处动态绑定的提示信息。
+    </span>
+    <span title="111" style="background-color: red">
+        222
+    </span>
+    <p v-if="seem">我出来了。</p>
+</div>
+
+<!--JS代码-->
+<script type="text/javascript">
+    var data = {
+        message: '页面加载于' + new Date().toLocaleString(),
+        seem: false
+    };
+    var app = new Vue({
+        el: '#app',
+        data: data
+    });
+    setTimeout(function () {
+        app.seem = true;
+    }, 3000)
+</script>
+<!--样式-->
+<style type="text/css">
+
+</style>
+</body>
+</html>
