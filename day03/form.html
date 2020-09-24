@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="form-example">
+    <input v-model="message" placeholder="edit me">
+    <P>Message is : {{ message }}</P>
+    <span>Multiline message is :</span>
+    <!--  保留原始文本中的换行符 style="white-space: pre-line"  -->
+    <p style="white-space: pre-line;">{{ multiMessage }}</p>
+    <textarea v-model="multiMessage" placeholder="add multiple lines"></textarea>
+</div>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#form-example',
+        data: {
+            message: '',
+            multiMessage: ''
+        }
+    });
+</script>
+<style type="text/css">
+
+</style>
+</body>
+</html>

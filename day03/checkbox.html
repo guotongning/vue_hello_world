@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="app">
+    <input type="checkbox" id="checkbox" v-model="checked">
+    <!--  单选框，绑定boolean状态  -->
+    <label for="checkbox">选择状态：{{ checked }}</label>
+    <!--  复选框，绑定选中值到数组  -->
+    <hr/>
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label><br>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label><br>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label><br>
+    <span>Checked names: {{ checkedNames }}</span>
+    <hr/>
+    <!--  单选按钮，绑定多个可选值到一个被选中的值上。  -->
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <br/>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br/>
+    <input type="radio" id="three" value="Three" v-model="picked">
+    <label for="three">Three</label>
+    <br/>
+    <span>Picked: {{ picked }}</span>
+    <hr/>
+    <!--  选择框，绑定可选项到选定值上，可以多选。 v-model="" multiple  -->
+    <select v-model="selected">
+        <option value="">请选择(无)</option>
+        <option v-for="option in options" v-bind:value="option.id">
+            {{ option.name }}
+        </option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+    <hr/>
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            checked: false,
+            checkedNames: [],
+            selected: '',
+            picked: 'One',
+            options: [
+                {id: 1, name: 'A'},
+                {id: 2, name: 'B'},
+                {id: 3, name: 'C'}
+            ]
+        }
+    });
+</script>
+</body>
+</html>

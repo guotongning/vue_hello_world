@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="app">
+    <!--  监听键盘事件  -->
+    <input v-model="message" v-on:keyup.Enter="alertMsg">
+</div>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: ''
+        },
+        methods: {
+            alertMsg: function () {
+                alert(this.message);
+            }
+        }
+    });
+</script>
+<style type="text/css">
+
+</style>
+</body>
+</html>
