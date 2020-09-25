@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prop-Root</title>
+    <script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="blog-post-demo" :style="{fontSize: postFontSize + 'px'}">
+    <blog-post v-for="post in posts"
+               v-bind:key="post.id"
+               v-bind:post="post"
+               v-on:enlarge-text="postFontSize += $event"
+               v-on:shrink-text="postFontSize -= $event"
+    ></blog-post>
+</div>
+<script type="text/javascript">
+    Vue.component('blog-post', {
+        props: ['post'],
+        //$emit('fuck') 抛出一个fuck事件，可以被父组件监听到。
+        template: '<div class="blog">\
+                        <h3>{{ post.title }}</h3>\
+                        <button v-on:click="$emit(\'enlarge-text\',2)">放大字体显示</button>\
+                        <button v-on:click="$emit(\'shrink-text\',2)">缩小字体显示</button>\
+                        <div v-html="post.content"></div>\
+                    </div>'
+    });
+    var app = new Vue({
+        el: '#blog-post-demo',
+        data: {
+            postFontSize: 15,
+            posts: [
+                {
+                    id: 1, content: '<hr/>\
+            <span>哎呀舒服舒服简直不谈了</span>\
+            <span>哎呀舒服舒服简直不谈了</span>\
+            <hr/>'
+                },
+                {
+                    id: 2, content: '<hr/>\
+            <span>哎呀折磨折磨简直不谈了</span>\
+            <span>哎呀折磨折磨简直不谈了</span>\
+            <hr/>'
+                },
+                {
+                    id: 3, content: '<hr/>\
+            <span>哎呀不谈不谈简直不谈了</span>\
+            <span>哎呀不谈不谈简直不谈了</span>\
+            <hr/>'
+                },
+            ]
+        }
+    });
+</script>
+</body>
+</html>

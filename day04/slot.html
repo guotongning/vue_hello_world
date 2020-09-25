@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div id="slot-demo" class="alert-box">
+    <alert-box>哎呀 难受难受</alert-box>
+</div>
+<script type="text/javascript">
+    Vue.component('alert-box', {
+        props: ['message'],
+        template: '<div class="demo-alert-box">\
+                        <strong>Error!</strong>\
+                        <slot></slot>\
+                    </div>'
+    });
+    var app = new Vue({
+        el: '#slot-demo'
+    });
+</script>
+<style type="text/css">
+    .alert-box {
+        padding: 10px 20px;
+        border: 1px solid #f09898;
+        background-color: #f3beb8;
+        width: 400px;
+    }
+</style>
+</body>
+</html>
